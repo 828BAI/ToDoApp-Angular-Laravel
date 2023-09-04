@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_volume_laravel_slow:/var/lib/postgresql/data
+
+  laravel:
+    container_name: composer-laravel
+    image: composer
+    ports:
+      - 8000:8000
+    volumes:
+      - ./laravel:/app
+      - laravel_volume_to_accelerate_vendor_load:/app/vendor
+    working_dir: /app
+    command: >
+      sh -c "
+        apk update
+        apk add autoconf g++ make postgresql-dev
+        docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+        docker-php-ext-install pdo_pgsql
+        # composer create-project laravel/laravel .
+        composer install
+        php artisan migrate
+        php artisan serve --host 0.0.0.0
+      "
+    depends_on:
+      postgres:
+        condition: service_started
+
+  angular:
+    container_name: node-angular
+    image: node:alpine
+    ports:
+      - 80:4200
+      - 443:4200
+    volumes:
+      - ./angular:/app
+      - angular_volume_to_accelerate_node_modules_load:/app/node_modules
+    working_dir: /app
+    command: >
+      sh -c "
+        npm i
+        npm start
+      "
+
+
+
+volumes:
+  laravel_volume_to_accelerate_vendor_load:
+  angular_volume_to_accelerate_node_modules_load:
+  postgres_volume_laravel_slow:
