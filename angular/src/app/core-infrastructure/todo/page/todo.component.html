@@ -1,0 +1,17 @@
+<div class="sm:max-w-2xl m-auto">
+    <ng-container *ngIf="!(loading$|async); else loader">
+        <ng-container *ngFor="let todo of (todos$|async);trackBy:trackByFn">
+            <app-comp-card [todo]="todo"></app-comp-card>
+        </ng-container>
+
+        <app-comp-card [todo]="newTodo" [isNew]="true"></app-comp-card>
+    </ng-container>
+</div>
+
+<ng-template #loader>
+    <div class="fixed z-10 inset-0 grid place-items-center backdrop-blur-sm">
+        <div>
+            Loading...
+        </div>
+    </div>
+</ng-template>

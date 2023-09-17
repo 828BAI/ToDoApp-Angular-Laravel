@@ -1,0 +1,37 @@
+<form class="card max-w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+        <div class="grid grid-flow-col place-items-center place-content-start gap-4 ">
+            <input [(ngModel)]="todo.status" name="status" type="checkbox" checked="checked"
+                class="checkbox h-10 w-10 border-primary " />
+            <label class="label cursor-pointer">
+                <input class="card-title text-4xl w-full p-2 bg-transparent" [(ngModel)]="todo.nazvanie" name="nazvanie"
+                    placeholder="Пишем название" />
+
+            </label>
+        </div>
+
+        <textarea [(ngModel)]="todo.opisanie" name="opisanie" class="p-5 text-xl bg-transparent"
+            placeholder="Пишем описание"></textarea>
+
+        <div class="grid place-content-between grid-flow-col mt-4">
+            <div *ngIf="todo.id as id" class="badge badge-primary ">{{id}}</div>
+            <div *ngIf="todo.created_at as created_at" class="badge badge-primary badge-outline">
+                {{created_at|date:'hh:mm dd.mm.yy'}}</div>
+        </div>
+
+        <div class="w-full text-center text-error text-xl mt-3">
+        </div>
+
+        <div class="card-actions  grid grid-flow-col">
+            <button *ngIf="!isNew" (click)="remove()" class="btn w-full" [class.animate-spin]="loading$|async"
+                class="btn w-full">Delete</button>
+
+            <button *ngIf="!isNew" (click)="update()" class="btn w-full" [class.animate-spin]="loading$|async"
+                class="btn w-full" type="submit">Update</button>
+
+            <button *ngIf="isNew" (click)="create()" class="btn w-full" [class.animate-spin]="loading$|async"
+                type="submit">Create</button>
+        </div>
+
+    </div>
+</form>

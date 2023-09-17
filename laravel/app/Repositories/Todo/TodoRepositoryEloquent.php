@@ -12,7 +12,7 @@ class TodoRepositoryEloquent implements TodoRepositoryInterface
     {
         $limit = $request->query('limit', null);
         $offset = $request->query('offset', null);
-        return Todo::offset($offset * $limit)->limit($limit)->get();
+        return Todo::offset($offset * $limit)->limit($limit)->orderBy('id', 'ASC')->get();
     }
 
     public function create(array $data)

@@ -1,0 +1,33 @@
+<div class="fixed  z-50 bottom-0 navbar backdrop-blur-sm xl:px-[20%]">
+    <div class="navbar-start">
+        <div class="dropdown dropdown-top">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li *ngIf="isLoggedIn$|async"><a [routerLink]="[Path_Main]">Домой</a></li>
+                <li><a [routerLink]="[Path_Landing]">Лэндинг</a></li>
+                <li *ngIf="!(isLoggedIn$|async)"><a [routerLink]="[Path_Register]">Регистрация</a></li>
+                <li *ngIf="!(isLoggedIn$|async)"><a [routerLink]="[Path_Login]">Логин</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar-center">
+        <a [routerLink]="[Path_Main]" class="btn btn-ghost normal-case text-xl">OLZHAS</a>
+    </div>
+    <div class="navbar-end">
+        <button  *ngIf="isLoggedIn$|async"   (click)="logout()" class="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor"
+                viewBox="0 0 16 16">
+                <path fillRule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                <path fillRule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+            </svg>
+        </button>
+
+    </div>
+</div>

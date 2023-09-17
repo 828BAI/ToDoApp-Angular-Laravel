@@ -1,0 +1,37 @@
+<div class="grid place-items-center min-h-[calc(100%-64px)] py-10 sm:max-w-2xl sm:m-auto">
+    <form (ngSubmit)="onSubmit()" class="w-4/5">
+        <div class="w-full text-center mb-5 text-2xl">Login page</div>
+
+        <a [routerLink]="[Path_Register]" type='button' class="link text-center w-full mb-10">Don't have
+            an account?</a>
+
+        <div class="form-control w-full">
+            <label class="label">
+                <span class="label-text">E-mail address</span>
+            </label>
+            <input [(ngModel)]="formData.email" name="email" required type="email" placeholder="Type here"
+                class="input input-bordered w-full" autocomplete="username" />
+        </div>
+
+        <div class="form-control w-full">
+            <label class="label">
+                <span class="label-text">Password</span>
+            </label>
+            <input [(ngModel)]="formData.password" name="password" required [type]="showPassword ? 'text' : 'password'"
+                placeholder="Type here" class="input input-bordered w-full" autocomplete="current-password" />
+        </div>
+
+        <div class="form-control w-max">
+            <label class="cursor-pointer label">
+                <input [(ngModel)]="showPassword" name="showpass" type="checkbox" class="checkbox checkbox-secondary" />
+                <span class="ml-4 label-text">Show password</span>
+            </label>
+        </div>
+
+        <div class="mt-5 text-error text-center">
+            {{ errorMessage$ | async }}
+        </div>
+
+        <button name="submitButton" type="submit" class="btn btn-primary mt-5 w-full">Login</button>
+    </form>
+</div>
